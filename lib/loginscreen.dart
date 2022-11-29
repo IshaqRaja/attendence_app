@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,13 +17,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Color primary = const Color(0xffeef444c);
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Container(
+           isKeyboardVisible ?  SizedBox(height: screenHeight / 16,)  // use for pushing form to the upword direction when we use it
+          : Container(
             height: screenHeight / 2.5,
             width: screenWidth,
             decoration: BoxDecoration(
@@ -60,9 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 fieldTitle("Employee ID"),
-                customfield("Enter your employee Id", idController),
+                customfield("Enter your employee Id", idController, false),
                 fieldTitle("Password"),
-                customfield("Enter your password", passController),
+                customfield("Enter your password", passController, true),
                 Container(
                   height: 60,
                   width: screenWidth,
@@ -76,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontFamily: "Nexabold",
                       fontSize: screenWidth / 26,
-                      color: Colors.white
+                      color: Colors.white,
+                      letterSpacing: 2,
 
                     ),
                     ),
@@ -104,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget customfield(String hint, TextEditingController controller) {
+  Widget customfield(String hint, TextEditingController controller, bool obscure) {
     return Container(
       width: screenWidth,
       margin: EdgeInsets.only(bottom: 12),
@@ -142,6 +147,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: InputBorder.none,
                   hintText: hint,
             ),
+                  maxLines: 1,
+                  obscureText: obscure,
 
           ),
               ))
