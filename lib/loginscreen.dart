@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -67,23 +69,47 @@ class _LoginScreenState extends State<LoginScreen> {
                 customfield("Enter your employee Id", idController, false),
                 fieldTitle("Password"),
                 customfield("Enter your password", passController, true),
-                Container(
-                  height: 60,
-                  width: screenWidth,
-                  margin: EdgeInsets.only(top: screenHeight / 40),
-                  decoration: BoxDecoration(
-                    color: primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child:  Center(
-                    child: Text("LOGIN",
-                    style: TextStyle(
-                      fontFamily: "Nexabold",
-                      fontSize: screenWidth / 26,
-                      color: Colors.white,
-                      letterSpacing: 2,
 
+                GestureDetector(
+                  onTap: () async {
+                    String id = idController.text.trim();
+                    String password = passController.text.trim();
+
+                    if(id.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const snackBar(
+                        content: Text("Employee id is still empty!"),
+                      ));
+                      else if(password.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(const snackBar(
+                          content: Text("Password is still empty"),
+                        ));
+                    }
+                      else {
+                      QuerySnapshot snap = await FirebaseFirestore.instance
+                          .collection("Employee").where('id', isEqualTo: id).get();
+                      print(snap.docs[0][id]);
+                    }
+
+                    }
+                  },
+                  child: Container(
+                    height: 60,
+                    width: screenWidth,
+                    margin: EdgeInsets.only(top: screenHeight / 40),
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
+                    child:  Center(
+                      child: Text("LOGIN",
+                      style: TextStyle(
+                        fontFamily: "Nexabold",
+                        fontSize: screenWidth / 26,
+                        color: Colors.white,
+                        letterSpacing: 2,
+
+                      ),
+                      ),
                     ),
                   ),
                 )
