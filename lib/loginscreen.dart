@@ -6,12 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'homescreen.dart';
 
 class LoginScreen extends StatefulWidget {
+
   const LoginScreen({Key? key}) : super(key: key);
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
+
   TextEditingController idController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -106,13 +107,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => const HomeScreen()));
                       });
+
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Password is not correct!"),
                       ));
                     }
+
                   } catch (e) {
                     String error = " ";
                     print(e.toString());

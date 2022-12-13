@@ -143,6 +143,7 @@ class _TodayScreenState extends State<TodayScreen> {
             margin: const EdgeInsets.only(top: 24),
             child: Builder(builder: (context) {
               final GlobalKey<SlideActionState> key = GlobalKey();
+
               return SlideAction(
                 text: "Slide to Check Out",
                 textStyle:  TextStyle(
@@ -156,7 +157,6 @@ class _TodayScreenState extends State<TodayScreen> {
                 onSubmit: (){
                   key.currentState!.reset();
                 },
-
               );
             }),
           )
