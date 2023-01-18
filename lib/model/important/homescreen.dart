@@ -1,6 +1,6 @@
-import 'package:attendence_app/calenderscreen.dart';
-import 'package:attendence_app/profilescreen.dart';
-import 'package:attendence_app/todayscreen.dart';
+import 'package:attendence_app/model/important/calenderscreen.dart';
+import 'package:attendence_app/model/important/profilescreen.dart';
+import 'package:attendence_app/model/less_important/todayscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Color primary = const Color(0xffeef444c);
 
-  int currentIndex = 0;
+  int currentIndex = 1;
 
   List<IconData> navigationIcons = [
     FontAwesomeIcons.calendarDay,
